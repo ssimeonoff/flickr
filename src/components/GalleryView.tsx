@@ -26,7 +26,7 @@ const GalleryView: React.FC<Props> = ({ gallery, setSelectedGallery }) => {
   }, [gallery.id]);
 
   //open confirmation dialog upon deletion
-  const confirmDelete = (selectedGallery: number) => {
+  const confirmDelete = () => {
     const isConfirmed: boolean = window.confirm(
       "Are you sure you want to delete the gallery?"
     );
@@ -44,11 +44,7 @@ const GalleryView: React.FC<Props> = ({ gallery, setSelectedGallery }) => {
     <SelectedGalleryContainer>
       <ResultLabel>{gallery.name}</ResultLabel>
 
-      <DeleteButton
-        onClick={() => {
-          confirmDelete(gallery.id);
-        }}
-      >
+      <DeleteButton onClick={() => confirmDelete()}>
         <i className="fa-solid fa-trash"></i>
       </DeleteButton>
 
