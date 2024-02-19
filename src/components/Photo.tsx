@@ -2,16 +2,20 @@ import { useState } from "react";
 import { Image, Checkmark, ImageContainer } from "./styles";
 import { PhotoType } from "../interfaces/interfaces";
 
-const Photo: React.FC<PhotoType> = ({
-  title,
-  farm,
-  id,
-  secret,
-  server,
+interface Props {
+  photo: PhotoType;
+  thumbnail?: boolean;
+  selected?: boolean;
+  toggleSelectedPhoto?: (photo: PhotoType) => void;
+}
+
+const Photo: React.FC<Props> = ({
+  photo,
   thumbnail = false,
   selected = false,
   toggleSelectedPhoto,
 }) => {
+  const { title, farm, id, secret, server } = photo;
   const path = `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg`;
   const [isSelected, setIsSelected] = useState(selected);
 
@@ -24,8 +28,7 @@ const Photo: React.FC<PhotoType> = ({
         alt={title}
         onClick={() => {
           thumbnail && setIsSelected((prevState) => !prevState);
-          toggleSelectedPhoto &&
-            toggleSelectedPhoto(title, farm, id, secret, server);
+          toggleSelectedPhoto && toggleSelectedPhoto(photo);
         }}
       />
       {isSelected && (

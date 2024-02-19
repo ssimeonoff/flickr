@@ -7,13 +7,8 @@ const useSelectedPhotos = () => {
   const [selectedCount, setSelectedCount] = useState(0);
 
   //adds or removes a photo from the selected array
-  const toggleSelectedPhoto = (
-    title: string,
-    farm: number,
-    id: string,
-    secret: string,
-    server: string
-  ) => {
+  const toggleSelectedPhoto = (photo: PhotoType) => {
+    const { title, farm, id, secret, server } = photo;
     // Find the index of the photo that needs to be removed
     const indexToRemove = selectedPhotos.findIndex(
       (photo) =>
@@ -35,13 +30,8 @@ const useSelectedPhotos = () => {
   };
 
   // checking if photo is selected (for the pagination rerendering)
-  const isPhotoSelected = (
-    title: string,
-    farm: number,
-    id: string,
-    secret: string,
-    server: string
-  ) => {
+  const isPhotoSelected = (photo: PhotoType) => {
+    const { title, farm, id, secret, server } = photo;
     if (selectedPhotos.length === 0) return false;
     const index = selectedPhotos.findIndex(
       (photo) =>

@@ -1,40 +1,15 @@
 import Galleries from "../components/Galleries";
-import ImagesGrid from "./ImagesGrid";
+import ImagesGrid from "./Images";
 import { ResultLabel } from "../components/styles";
-import useGalleries from "../hooks/useGalleries";
-import { DataType } from "../interfaces/interfaces";
+import { useFlickrContext } from "../contexts/FlickrContext";
 
-interface Props {
-  data: DataType | null;
-  error: string | null;
-  searchedText: string;
-  fetchPaginatedPhotos: (page: number) => void;
-  clearSearch: () => void;
-}
-
-const Main: React.FC<Props> = ({
-  data,
-  error,
-  searchedText,
-  fetchPaginatedPhotos,
-  clearSearch,
-}) => {
-  const { galleries, saveNewGallery, deleteGallery } = useGalleries();
+const Main: React.FC = () => {
+  const { data, error, searchedText } = useFlickrContext();
 
   return (
     <>
-      <Galleries galleries={galleries} deleteGallery={deleteGallery} />
-      {data ? (
-        <ImagesGrid
-          data={data}
-          searchedText={searchedText}
-          fetchPaginatedPhotos={fetchPaginatedPhotos}
-          clearSearch={clearSearch}
-          saveNewGallery={saveNewGallery}
-        />
-      ) : (
-        error
-      )}
+      <Galleries />
+      {data ? <ImagesGrid /> : error}
       {!searchedText && <ResultLabel>Search for images</ResultLabel>}
     </>
   );

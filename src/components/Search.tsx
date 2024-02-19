@@ -1,11 +1,9 @@
 import { ChangeEvent, useRef, useState } from "react";
 import { SearchContainer, SearchInput, SearchButton } from "./styles";
+import { useFlickrContext } from "../contexts/FlickrContext";
 
-interface Props {
-  fetchPhotos: (text: string) => void;
-}
-
-const Search: React.FC<Props> = ({ fetchPhotos }) => {
+const Search: React.FC = () => {
+  const { fetchPhotos } = useFlickrContext();
   const [searchText, setSearchText] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 

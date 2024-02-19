@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { CloseButton, SearchButton, SearchInput } from "./styles";
-import { GalleryType, PhotoType } from "../interfaces/interfaces";
+import { PhotoType } from "../interfaces/interfaces";
+import { useGalleriesContext } from "../contexts/GalleriesContext";
 
 interface Props {
   active: boolean;
@@ -8,16 +9,15 @@ interface Props {
   selectedCount: number;
   selectedPhotos: PhotoType[];
   clearSearch: () => void;
-  saveNewGallery: (gallery: GalleryType) => void;
 }
 
 const NewGallery: React.FC<Props> = ({
   active,
   searchedText,
   selectedPhotos,
-  saveNewGallery,
   clearSearch,
 }) => {
+  const { saveNewGallery } = useGalleriesContext();
   const [title, setTitle] = useState(searchedText);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

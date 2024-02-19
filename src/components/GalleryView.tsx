@@ -8,18 +8,16 @@ import {
 import Pagination from "./Pagination";
 import Photo from "./Photo";
 import { GalleryTypeIndexed } from "../interfaces/interfaces";
+import { useGalleriesContext } from "../contexts/GalleriesContext";
 
 interface Props {
   gallery: GalleryTypeIndexed;
-  deleteGallery: (id: number) => void;
   setSelectedGallery: (page: number | null) => void;
 }
 
-const GalleryView: React.FC<Props> = ({
-  gallery,
-  deleteGallery,
-  setSelectedGallery,
-}) => {
+const GalleryView: React.FC<Props> = ({ gallery, setSelectedGallery }) => {
+  const { deleteGallery } = useGalleriesContext();
+
   const [page, setPage] = useState<number>(1); //first page
 
   //reset the page when a new gallery is opened
@@ -67,13 +65,7 @@ const GalleryView: React.FC<Props> = ({
       />
 
       {page <= gallery.photos.length && (
-        <Photo
-          title={gallery.photos[page - 1].title}
-          farm={gallery.photos[page - 1].farm}
-          server={gallery.photos[page - 1].server}
-          id={gallery.photos[page - 1].id}
-          secret={gallery.photos[page - 1].secret}
-        />
+        <Photo photo={gallery.photos[page - 1]} />
       )}
     </SelectedGalleryContainer>
   );

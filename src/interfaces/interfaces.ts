@@ -49,11 +49,4 @@ export interface PhotoType {
   title: string;
   thumbnail?: boolean;
   selected?: boolean;
-  toggleSelectedPhoto?: (
-    title: string,
-    farm: number,
-    id: string,
-    secret: string,
-    server: string
-  ) => void;
 }

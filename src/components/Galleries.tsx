@@ -5,17 +5,14 @@ import {
   ResultLabel,
   GalleryLabelContainer,
 } from "./styles";
-import { GalleryTypeIndexed } from "../interfaces/interfaces";
 import GalleryView from "./GalleryView";
-
-interface Props {
-  galleries: GalleryTypeIndexed[];
-  deleteGallery: (id: number) => void;
-}
+import { useGalleriesContext } from "../contexts/GalleriesContext";
 
 //Renders the exisiting galleries and the gallery view
-const Galleries: React.FC<Props> = ({ galleries, deleteGallery }) => {
+const Galleries: React.FC = () => {
   const [selectedGallery, setSelectedGallery] = useState<number | null>(null);
+
+  const { galleries } = useGalleriesContext();
 
   return (
     <GalleriesContainer>
@@ -41,7 +38,6 @@ const Galleries: React.FC<Props> = ({ galleries, deleteGallery }) => {
         <GalleryView
           gallery={galleries[selectedGallery]}
           setSelectedGallery={setSelectedGallery}
-          deleteGallery={deleteGallery}
         />
       )}
     </GalleriesContainer>
