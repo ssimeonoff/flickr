@@ -15,32 +15,36 @@ const Galleries: React.FC = () => {
   const { galleries } = useGalleriesContext();
 
   return (
-    <GalleriesContainer>
-      <ResultLabel>Galleries</ResultLabel>
+    <>
+      {galleries.length > 0 && (
+        <GalleriesContainer>
+          <ResultLabel>Galleries</ResultLabel>
 
-      <GalleryLabelContainer>
-        {galleries.map((gallery) => {
-          return (
-            <GalleryLabel
-              key={gallery.id}
-              $selected={selectedGallery === gallery.id}
-              onClick={() => {
-                setSelectedGallery(gallery.id);
-              }}
-            >
-              {gallery.name}
-            </GalleryLabel>
-          );
-        })}
-      </GalleryLabelContainer>
+          <GalleryLabelContainer>
+            {galleries.map((gallery) => {
+              return (
+                <GalleryLabel
+                  key={gallery.id}
+                  $selected={selectedGallery === gallery.id}
+                  onClick={() => {
+                    setSelectedGallery(gallery.id);
+                  }}
+                >
+                  {gallery.name}
+                </GalleryLabel>
+              );
+            })}
+          </GalleryLabelContainer>
 
-      {selectedGallery !== null && (
-        <GalleryView
-          gallery={galleries[selectedGallery]}
-          setSelectedGallery={setSelectedGallery}
-        />
+          {selectedGallery !== null && (
+            <GalleryView
+              gallery={galleries[selectedGallery]}
+              setSelectedGallery={setSelectedGallery}
+            />
+          )}
+        </GalleriesContainer>
       )}
-    </GalleriesContainer>
+    </>
   );
 };
 
