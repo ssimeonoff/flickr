@@ -1,19 +1,21 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { CloseButton, SearchButton, SearchInput } from "./styles";
+import { GalleryType, PhotoType } from "../interfaces/interfaces";
 
 interface Props {
   active: boolean;
   searchedText: string;
   selectedCount: number;
-  saveGallery: (title: string) => void;
+  selectedPhotos: PhotoType[];
   clearSearch: () => void;
+  saveNewGallery: (gallery: GalleryType) => void;
 }
 
 const NewGallery: React.FC<Props> = ({
   active,
   searchedText,
-  selectedCount,
-  saveGallery,
+  selectedPhotos,
+  saveNewGallery,
   clearSearch,
 }) => {
   const [title, setTitle] = useState(searchedText);
@@ -24,7 +26,11 @@ const NewGallery: React.FC<Props> = ({
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    saveGallery(title);
+    saveNewGallery({
+      name: title,
+      photos: selectedPhotos,
+    });
+    clearSearch();
   };
 
   return (
@@ -41,7 +47,7 @@ const NewGallery: React.FC<Props> = ({
           />
 
           <SearchButton type="submit">
-            SAVE GALLERY / {selectedCount}
+            SAVE GALLERY / {selectedPhotos.length}
           </SearchButton>
           <CloseButton onClick={clearSearch}>
             <i className="fa-solid fa-xmark"></i>

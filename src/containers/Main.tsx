@@ -1,5 +1,5 @@
 import Galleries from "../components/Galleries";
-import ImagesGrid from "../components/ImagesGrid";
+import ImagesGrid from "./ImagesGrid";
 import { ResultLabel } from "../components/styles";
 import useGalleries from "../hooks/useGalleries";
 import { DataType } from "../interfaces/interfaces";
