@@ -22,6 +22,7 @@ const Pagination: React.FC<Props> = ({
   const isPreviousDisabled = page === 1;
   const isNextDisabled = page === pages;
 
+  //different labels based on page size (gallery view uses perpage=1)
   const displayLabel = () => {
     if (total > 0 && perpage > 1) return pageLabel;
     if (total > 0 && perpage === 1) return pageLabelSinglePhoto;

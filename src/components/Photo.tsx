@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Image, Checkmark, ImageContainer } from "./styles";
 import { PhotoType } from "../interfaces/interfaces";
 
@@ -9,27 +9,28 @@ const Photo: React.FC<PhotoType> = ({
   secret,
   server,
   thumbnail = false,
+  selected = false,
   toggleSelectedPhoto,
 }) => {
   const path = `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg`;
-  const [selected, setSelected] = useState(false);
+  const [isSelected, setIsSelected] = useState(selected);
 
   return (
     <ImageContainer $thumbnail={thumbnail}>
       <Image
         $thumbnail={thumbnail}
-        $selected={selected}
+        $selected={isSelected}
         src={path}
         alt={title}
         onClick={() => {
-          setSelected((prevState) => !prevState);
+          thumbnail && setIsSelected((prevState) => !prevState);
           toggleSelectedPhoto &&
             toggleSelectedPhoto(title, farm, id, secret, server);
         }}
       />
-      {selected && (
+      {isSelected && (
         <Checkmark>
-          <i className="fa-solid fa-circle-check"></i>
+          <i className="fa-solid fa-check"></i>
         </Checkmark>
       )}
     </ImageContainer>

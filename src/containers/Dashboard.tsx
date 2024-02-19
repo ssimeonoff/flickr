@@ -3,8 +3,14 @@ import Search from "../components/Search";
 import Main from "./Main";
 
 const Dashboard: React.FC = () => {
-  const { fetchPhotos, fetchPaginatedPhotos, data, error, searchedText } =
-    useFlickr();
+  const {
+    fetchPhotos,
+    fetchPaginatedPhotos,
+    clearSearch,
+    data,
+    error,
+    searchedText,
+  } = useFlickr();
 
   return (
     <>
@@ -14,6 +20,7 @@ const Dashboard: React.FC = () => {
         error={error}
         searchedText={searchedText}
         fetchPaginatedPhotos={fetchPaginatedPhotos}
+        clearSearch={clearSearch}
       />
     </>
   );

@@ -37,17 +37,21 @@ const PaginationButton = styled.button`
 
 const ImageContainer = styled.div<{ $thumbnail: boolean }>`
   position: relative;
+  width: ${(props) => props.$thumbnail && "150px"};
   height: ${(props) => props.$thumbnail && "150px"};
+  border-radius: 5px;
+  color: #ccc;
 `;
 
 const Image = styled.img<{ $selected: boolean; $thumbnail: boolean }>`
   width: ${(props) => props.$thumbnail && "150px"};
   height: ${(props) => props.$thumbnail && "150px"};
+  max-width: 100%;
   object-fit: cover;
   border-radius: 5px;
-  border: 1px solid;
+  border: 1px solid #000;
   box-sizing: border-box;
-  cursor: pointer;
+  cursor: ${(props) => props.$thumbnail && "pointer"};
   transform: ${(props) => props.$selected && "scale(0.9)"};
 `;
 
@@ -57,11 +61,12 @@ const Checkmark = styled.div`
   right: 0px;
   width: 20px;
   height: 20px;
-  border-radius: 20px;
-  border: 2px solid #222;
   line-height: 20px;
-  background-color: #eee;
-  color: darkgreen;
+  font-size: 14px;
+  border-radius: 50%;
+  border: 2px solid #222;
+  color: black;
+  background-color: #1db954;
 `;
 
 const SearchContainer = styled.div`
@@ -83,7 +88,8 @@ const SearchButton = styled.button`
   margin-left: 10px;
   height: 34px;
   border-radius: 20px;
-  background-color: #50a050;
+  background-color: #1db954;
+  font-weight: 600;
   cursor: pointer;
 `;
 
@@ -102,20 +108,34 @@ const SelectedGalleryContainer = styled.div`
 
 const CloseButton = styled.button`
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
   width: 30px;
   height: 30px;
   border-radius: 15px;
   cursor: pointer;
 `;
 
-const GalleryLabel = styled.span`
-  background-color: #ccc;
+const DeleteButton = styled(CloseButton)`
+  right: 50px;
+  background-color: #f44;
+`;
+
+const GalleryLabelContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+`;
+
+const GalleryLabel = styled.div<{ $selected: boolean }>`
+  background-color: ${(props) => (props.$selected ? "#444" : "#ccc")};
   color: black;
-  padding: 5px 15px;
-  border-radius: 5px;
-  border: 1px solid;
+  padding: 0px 15px;
+  height: 22px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-weight: 600;
   cursor: pointer;
 `;
 
@@ -126,6 +146,7 @@ export {
   PageLabel,
   PaginationButton,
   CloseButton,
+  DeleteButton,
   SelectedGalleryContainer,
   ImageContainer,
   Image,
@@ -135,4 +156,5 @@ export {
   SearchButton,
   GalleriesContainer,
   GalleryLabel,
+  GalleryLabelContainer,
 };

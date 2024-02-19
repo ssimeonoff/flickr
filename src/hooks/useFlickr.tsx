@@ -7,6 +7,7 @@ const useFlickr = () => {
   const [error, setError] = useState<string | null>(null);
   const [searchedText, setSearchedText] = useState<string>("");
 
+  //fetching photos
   const fetchPhotos = async (text: string, page?: number) => {
     try {
       const response = await getPhotos(text, page);
@@ -17,11 +18,25 @@ const useFlickr = () => {
     }
   };
 
+  //fetching photos by providing a page number
   const fetchPaginatedPhotos = (page: number) => {
     fetchPhotos(searchedText, page);
   };
 
-  return { data, error, searchedText, fetchPhotos, fetchPaginatedPhotos };
+  // clearing the search
+  const clearSearch = () => {
+    setData(null);
+    setSearchedText("");
+  };
+
+  return {
+    data,
+    error,
+    searchedText,
+    fetchPhotos,
+    fetchPaginatedPhotos,
+    clearSearch,
+  };
 };
 
 export default useFlickr;

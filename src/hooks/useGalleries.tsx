@@ -6,6 +6,7 @@ const LOCAL_STORAGE_DATA_KEY = "galleries";
 const useGalleries = () => {
   const [savedGalleries, setSavedGalleries] = useState<GalleryType[]>([]);
 
+  //get saved galleries from local storage
   const getLocalStorageData = () => {
     const savedData = localStorage.getItem(LOCAL_STORAGE_DATA_KEY);
     if (savedData) {
@@ -13,10 +14,29 @@ const useGalleries = () => {
     }
   };
 
-  // useEffect to load data from localStorage on component mount
+  // load data from localStorage on component mount
   useEffect(() => {
     getLocalStorageData();
   }, []);
+
+  //save a new gallery
+  const saveNewGallery = (newGallery: GalleryType) => {
+    savedGalleries.push(newGallery);
+    localStorage.setItem(
+      LOCAL_STORAGE_DATA_KEY,
+      JSON.stringify(savedGalleries)
+    );
+    getLocalStorageData();
+  };
+
+  //delete a gallery
+  const deleteGallery = (id: number) => {
+    localStorage.setItem(
+      LOCAL_STORAGE_DATA_KEY,
+      JSON.stringify(savedGalleries.filter((item, index) => index !== id))
+    );
+    getLocalStorageData();
+  };
 
   // add index to the array
   const galleries = savedGalleries.map((item, index) => ({
@@ -24,57 +44,7 @@ const useGalleries = () => {
     ...item,
   }));
 
-  return { galleries };
+  return { galleries, saveNewGallery, deleteGallery };
 };
 
 export default useGalleries;
-
-/*   const gal = [
-    {
-      name: "gal1",
-      photos: [
-        {
-          title: "Cake by Colorful Sweets & Dog Treats",
-          farm: 66,
-          id: "53534630584",
-          secret: "2a533788cb",
-          server: "65535",
-        },
-        {
-          title: "Cake by Colorful Sweets & Dog Treats",
-          farm: 66,
-          id: "53534630584",
-          secret: "2a533788cb",
-          server: "65535",
-        },
-      ],
-    },
-    {
-      name: "gal2",
-      photos: [
-        {
-          title: "Cake by Colorful Sweets & Dog Treats",
-          farm: 66,
-          id: "53534630584",
-          secret: "2a533788cb",
-          server: "65535",
-        },
-        {
-          title: "Cake by Colorful Sweets & Dog Treats",
-          farm: 66,
-          id: "53534630584",
-          secret: "2a533788cb",
-          server: "65535",
-        },
-        {
-          title: "Cake by Colorful Sweets & Dog Treats",
-          farm: 66,
-          id: "53534630584",
-          secret: "2a533788cb",
-          server: "65535",
-        },
-      ],
-    },
-  ]; */
-
-// localStorage.setItem(LOCAL_STORAGE_DATA_KEY, JSON.stringify(gal));

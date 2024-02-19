@@ -48,6 +48,7 @@ export interface PhotoType {
   server: string;
   title: string;
   thumbnail?: boolean;
+  selected?: boolean;
   toggleSelectedPhoto?: (
     title: string,
     farm: number,
