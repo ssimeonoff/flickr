@@ -7,8 +7,10 @@
 
 - Viewing a gallery is indenpendent from viewing search results
 - Seaching for images does not disrupt viewing of an existing gallery
-- Saving a gallery does not disrupt viewing of an existing gallery
-- Saving a gallery clears the search results
+- Seaching for images does not clear selected images (can create a gallery from multiple searches)
+- Saving a new gallery does not disrupt viewing of an existing gallery
+- Saving a new gallery clears the search results
+- Cancelling a new gallery clears the search results
 - Selecting a photo from searched results, selects it (not implemented: opening the photo in full view)
 
 ### `npm start`
