@@ -34,7 +34,7 @@ const Search: React.FC = () => {
         ref={inputRef}
       />
       <SearchButton onClick={handleSearch}>
-        <i className="fa-solid fa-play"></i>
+        <i className="fa-solid fa-magnifying-glass"></i>
       </SearchButton>
     </SearchContainer>
   );
