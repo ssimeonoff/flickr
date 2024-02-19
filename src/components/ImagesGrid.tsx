@@ -80,6 +80,7 @@ const ImagesGrid: React.FC<Props> = ({
     secret: string,
     server: string
   ) => {
+    if (selectedPhotos.length === 0) return false;
     const index = selectedPhotos.findIndex(
       (photo) =>
         photo.title === title &&
@@ -101,31 +102,6 @@ const ImagesGrid: React.FC<Props> = ({
     clearSearch();
   };
 
-  // rendering the page of images
-  const renderTiles = () => {
-    return photo.map((photo) => {
-      return (
-        <Photo
-          key={photo.id}
-          title={photo.title}
-          farm={photo.farm}
-          server={photo.server}
-          id={photo.id}
-          secret={photo.secret}
-          thumbnail={true}
-          toggleSelectedPhoto={toggleSelectedPhoto}
-          selected={isPhotoSelected(
-            photo.title,
-            photo.farm,
-            photo.id,
-            photo.secret,
-            photo.server
-          )}
-        />
-      );
-    });
-  };
-
   return (
     <>
       <ResultLabel>{`results for "${searchedText}"`}</ResultLabel>
@@ -134,6 +110,7 @@ const ImagesGrid: React.FC<Props> = ({
         active={newGallery}
         searchedText={searchedText}
         saveGallery={saveGallery}
+        clearSearch={clearSearch}
         selectedCount={selectedCount}
       />
 
@@ -145,7 +122,29 @@ const ImagesGrid: React.FC<Props> = ({
         fetchPaginatedPhotos={fetchPaginatedPhotos}
       />
 
-      <TilesContainer>{renderTiles()}</TilesContainer>
+      <TilesContainer>
+        {photo.map((photo) => {
+          return (
+            <Photo
+              key={photo.id}
+              title={photo.title}
+              farm={photo.farm}
+              server={photo.server}
+              id={photo.id}
+              secret={photo.secret}
+              thumbnail={true}
+              toggleSelectedPhoto={toggleSelectedPhoto}
+              selected={isPhotoSelected(
+                photo.title,
+                photo.farm,
+                photo.id,
+                photo.secret,
+                photo.server
+              )}
+            />
+          );
+        })}
+      </TilesContainer>
     </>
   );
 };
