@@ -29,17 +29,20 @@ const PageLabel = styled.div`
 `;
 
 const PaginationButton = styled.button`
-  width: 50px;
   height: 30px;
-  border-radius: 15px;
+  padding: 0 20px;
+  border-radius: 20px;
+  background: linear-gradient(#fff, #888);
   cursor: pointer;
+  &:disabled {
+    background: #444;
+  }
 `;
 
 const ImageContainer = styled.div<{ $thumbnail: boolean }>`
   position: relative;
   width: ${(props) => props.$thumbnail && "150px"};
   height: ${(props) => props.$thumbnail && "150px"};
-  border-radius: 5px;
   color: #ccc;
 `;
 
@@ -48,9 +51,6 @@ const Image = styled.img<{ $selected: boolean; $thumbnail: boolean }>`
   height: ${(props) => props.$thumbnail && "150px"};
   max-width: 100%;
   object-fit: cover;
-  border-radius: 5px;
-  border: 1px solid #000;
-  box-sizing: border-box;
   cursor: ${(props) => props.$thumbnail && "pointer"};
   transform: ${(props) => props.$selected && "scale(0.9)"};
 `;
@@ -66,7 +66,7 @@ const Checkmark = styled.div`
   border-radius: 50%;
   border: 2px solid #222;
   color: black;
-  background-color: #1db954;
+  background: linear-gradient(#29e56c, #15833c);
 `;
 
 const SearchContainer = styled.div`
@@ -88,9 +88,13 @@ const SearchButton = styled.button`
   margin-left: 10px;
   height: 34px;
   border-radius: 20px;
-  background-color: #1db954;
+  background: linear-gradient(#29e56c, #15833c);
   font-weight: 600;
   cursor: pointer;
+`;
+
+const ClearButton = styled(SearchButton)`
+  background: linear-gradient(#fff, #888);
 `;
 
 const GalleriesContainer = styled.div`
@@ -113,26 +117,28 @@ const CloseButton = styled.button`
   width: 30px;
   height: 30px;
   border-radius: 15px;
+  background: linear-gradient(#fff, #888);
   cursor: pointer;
 `;
 
 const DeleteButton = styled(CloseButton)`
   right: 50px;
-  background-color: #f44;
+  background: linear-gradient(#f44, #b43030);
 `;
 
 const GalleryLabelContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 5px;
+  gap: 10px;
 `;
 
-const GalleryLabel = styled.div<{ $selected: boolean }>`
-  background-color: ${(props) => (props.$selected ? "#444" : "#ccc")};
+const GalleryLabel = styled.button<{ $selected: boolean }>`
+  background: ${(props) =>
+    props.$selected ? "#444" : "linear-gradient(#fff,#888)"};
   color: black;
   padding: 0px 15px;
-  height: 22px;
+  height: 30px;
   border-radius: 20px;
   text-transform: uppercase;
   font-weight: 600;
@@ -154,6 +160,7 @@ export {
   SearchContainer,
   SearchInput,
   SearchButton,
+  ClearButton,
   GalleriesContainer,
   GalleryLabel,
   GalleryLabelContainer,

@@ -6,13 +6,13 @@ import {
   GalleryLabelContainer,
 } from "./styles";
 import GalleryView from "./GalleryView";
-import { useGalleriesContext } from "../contexts/GalleriesContext";
+import { useGalleries } from "../hooks/useGalleries";
 
 //Renders the exisiting galleries and the gallery view
 const Galleries: React.FC = () => {
   const [selectedGallery, setSelectedGallery] = useState<number | null>(null);
 
-  const { galleries } = useGalleriesContext();
+  const { galleries } = useGalleries();
 
   return (
     <>
@@ -26,6 +26,7 @@ const Galleries: React.FC = () => {
                 <GalleryLabel
                   key={gallery.id}
                   $selected={selectedGallery === gallery.id}
+                  disabled={selectedGallery === gallery.id}
                   onClick={() => {
                     setSelectedGallery(gallery.id);
                   }}

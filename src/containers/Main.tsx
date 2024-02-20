@@ -1,9 +1,9 @@
 import Galleries from "../components/Galleries";
 import ImagesGrid from "./Images";
-import { useFlickrContext } from "../contexts/FlickrContext";
+import { useFlickr } from "../hooks/useFlickr";
 
 const Main: React.FC = () => {
-  const { data, error } = useFlickrContext();
+  const { data, error } = useFlickr();
 
   return (
     <>

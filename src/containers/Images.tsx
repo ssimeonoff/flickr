@@ -1,22 +1,12 @@
 import Pagination from "../components/Pagination";
 
-import { TilesContainer, ResultLabel } from "../components/styles";
+import { ResultLabel } from "../components/styles";
 import NewGallery from "../components/NewGallery";
-import useSelectedPhotos from "../hooks/useSelectedPhotos";
-import { useFlickrContext } from "../contexts/FlickrContext";
-import PhotosGrid from "../components/PhotosGrid";
+import { useFlickr } from "../hooks/useFlickr";
+import PhotosGrid from "./PhotosGrid";
 
 const ImagesGrid: React.FC = () => {
-  const { data, searchedText, fetchPaginatedPhotos, clearSearch } =
-    useFlickrContext();
-
-  const {
-    selectedPhotos,
-    newGallery,
-    selectedCount,
-    toggleSelectedPhoto,
-    isPhotoSelected,
-  } = useSelectedPhotos();
+  const { data, searchedText, fetchPaginatedPhotos } = useFlickr();
 
   if (data === null) return null;
 
@@ -26,13 +16,7 @@ const ImagesGrid: React.FC = () => {
     <>
       <ResultLabel>{`results for "${searchedText}"`}</ResultLabel>
 
-      <NewGallery
-        active={newGallery}
-        searchedText={searchedText}
-        clearSearch={clearSearch}
-        selectedCount={selectedCount}
-        selectedPhotos={selectedPhotos}
-      />
+      <NewGallery />
 
       <Pagination
         page={page}
@@ -42,11 +26,7 @@ const ImagesGrid: React.FC = () => {
         fetchPaginatedPhotos={fetchPaginatedPhotos}
       />
 
-      <PhotosGrid
-        photos={photo}
-        toggleSelectedPhoto={toggleSelectedPhoto}
-        isPhotoSelected={isPhotoSelected}
-      />
+      <PhotosGrid photos={photo} />
     </>
   );
 };

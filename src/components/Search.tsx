@@ -1,9 +1,9 @@
 import { ChangeEvent, useRef, useState } from "react";
 import { SearchContainer, SearchInput, SearchButton } from "./styles";
-import { useFlickrContext } from "../contexts/FlickrContext";
+import { useFlickr } from "../hooks/useFlickr";
 
 const Search: React.FC = () => {
-  const { fetchPhotos } = useFlickrContext();
+  const { fetchPhotos } = useFlickr();
   const [searchText, setSearchText] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -36,6 +36,16 @@ const Search: React.FC = () => {
       <SearchButton onClick={handleSearch}>
         <i className="fa-solid fa-magnifying-glass"></i>
       </SearchButton>
+      <div
+        style={{
+          color: "#aaa",
+          position: "absolute",
+          top: "5px",
+          right: "10px",
+        }}
+      >
+        v2.0
+      </div>
     </SearchContainer>
   );
 };

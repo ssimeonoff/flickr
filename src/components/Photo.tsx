@@ -1,37 +1,33 @@
-import { useState } from "react";
+import { memo } from "react";
 import { Image, Checkmark, ImageContainer } from "./styles";
 import { PhotoType } from "../interfaces/interfaces";
 
 interface Props {
   photo: PhotoType;
   thumbnail?: boolean;
-  selected?: boolean;
+  isPhotoSelected?: boolean;
   toggleSelectedPhoto?: (photo: PhotoType) => void;
 }
 
 const Photo: React.FC<Props> = ({
   photo,
   thumbnail = false,
-  selected = false,
+  isPhotoSelected = false,
   toggleSelectedPhoto,
 }) => {
   const { title, farm, id, secret, server } = photo;
   const path = `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg`;
-  const [isSelected, setIsSelected] = useState(selected);
 
   return (
     <ImageContainer $thumbnail={thumbnail}>
       <Image
         $thumbnail={thumbnail}
-        $selected={isSelected}
+        $selected={isPhotoSelected}
         src={path}
         alt={title}
-        onClick={() => {
-          thumbnail && setIsSelected((prevState) => !prevState);
-          toggleSelectedPhoto && toggleSelectedPhoto(photo);
-        }}
+        onClick={() => toggleSelectedPhoto && toggleSelectedPhoto(photo)}
       />
-      {isSelected && (
+      {isPhotoSelected && (
         <Checkmark>
           <i className="fa-solid fa-check"></i>
         </Checkmark>
@@ -40,4 +36,4 @@ const Photo: React.FC<Props> = ({
   );
 };
 
-export default Photo;
+export default memo(Photo);

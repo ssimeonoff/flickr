@@ -1,42 +1,11 @@
-import { useState } from "react";
-import { getPhotos } from "../api/apis";
-import { DataType } from "../interfaces/interfaces";
+import { useContext } from "react";
+import { FlickrContext } from "../contexts/FlickrContext";
 
-const useFlickr = () => {
-  const [data, setData] = useState<DataType | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [searchedText, setSearchedText] = useState<string>("");
-
-  //fetching photos
-  const fetchPhotos = async (text: string, page?: number) => {
-    try {
-      const response = await getPhotos(text, page);
-      setData(response.data);
-      setSearchedText(text);
-    } catch (error) {
-      setError("Failed to fetch images.");
-    }
-  };
-
-  //fetching photos by providing a page number
-  const fetchPaginatedPhotos = (page: number) => {
-    fetchPhotos(searchedText, page);
-  };
-
-  // clearing the search
-  const clearSearch = () => {
-    setData(null);
-    setSearchedText("");
-  };
-
-  return {
-    data,
-    error,
-    searchedText,
-    fetchPhotos,
-    fetchPaginatedPhotos,
-    clearSearch,
-  };
+// Custom hook to use the context
+export const useFlickr = () => {
+  const context = useContext(FlickrContext);
+  if (context === undefined) {
+    throw new Error("useFlickrContext must be used within a FlickrProvider");
+  }
+  return context;
 };
-
-export default useFlickr;

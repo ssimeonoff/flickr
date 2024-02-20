@@ -1,23 +1,14 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { CloseButton, SearchButton, SearchInput } from "./styles";
-import { PhotoType } from "../interfaces/interfaces";
-import { useGalleriesContext } from "../contexts/GalleriesContext";
+import { ClearButton, SearchButton, SearchInput } from "./styles";
+import { useGalleries } from "../hooks/useGalleries";
+import { useSelectedPhotos } from "../hooks/useSelectedPhotos";
+import { useFlickr } from "../hooks/useFlickr";
 
-interface Props {
-  active: boolean;
-  searchedText: string;
-  selectedCount: number;
-  selectedPhotos: PhotoType[];
-  clearSearch: () => void;
-}
+const NewGallery: React.FC = () => {
+  const { saveNewGallery } = useGalleries();
+  const { searchedText, clearSearch } = useFlickr();
+  const { selectedPhotos, setSelectedPhotos } = useSelectedPhotos();
 
-const NewGallery: React.FC<Props> = ({
-  active,
-  searchedText,
-  selectedPhotos,
-  clearSearch,
-}) => {
-  const { saveNewGallery } = useGalleriesContext();
   const [title, setTitle] = useState(searchedText);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,28 +21,26 @@ const NewGallery: React.FC<Props> = ({
       name: title,
       photos: selectedPhotos,
     });
+    setSelectedPhotos([]);
     clearSearch();
   };
 
   return (
-    <div style={{ position: "relative" }}>
-      {active && (
+    <div style={{ minHeight: "35px" }}>
+      {selectedPhotos.length > 0 && (
         <form onSubmit={handleSubmit}>
           <SearchInput
             type="text"
             name="title"
             value={title}
             onChange={handleChange}
-            placeholder="Title"
+            placeholder="Gallery name"
             required
           />
-
-          <SearchButton type="submit">
-            SAVE GALLERY / {selectedPhotos.length}
-          </SearchButton>
-          <CloseButton onClick={clearSearch}>
-            <i className="fa-solid fa-xmark"></i>
-          </CloseButton>
+          <SearchButton type="submit">SAVE</SearchButton>
+          <ClearButton type="button" onClick={() => setSelectedPhotos([])}>
+            <i className="fa-solid fa-xmark"></i> {selectedPhotos.length}
+          </ClearButton>
         </form>
       )}
     </div>

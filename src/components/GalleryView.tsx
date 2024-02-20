@@ -8,7 +8,7 @@ import {
 import Pagination from "./Pagination";
 import Photo from "./Photo";
 import { GalleryTypeIndexed } from "../interfaces/interfaces";
-import { useGalleriesContext } from "../contexts/GalleriesContext";
+import { useGalleries } from "../hooks/useGalleries";
 
 interface Props {
   gallery: GalleryTypeIndexed;
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const GalleryView: React.FC<Props> = ({ gallery, setSelectedGallery }) => {
-  const { deleteGallery } = useGalleriesContext();
+  const { deleteGallery } = useGalleries();
 
   const [page, setPage] = useState<number>(1); //first page
 

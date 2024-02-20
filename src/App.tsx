@@ -3,13 +3,16 @@ import "./App.css";
 import Dashboard from "./containers/Dashboard";
 import { GalleriesProvider } from "./contexts/GalleriesContext";
 import { FlickrProvider } from "./contexts/FlickrContext";
+import { SelectedPhotosProvider } from "./contexts/SelectedPhotosContext";
 
 function App() {
   return (
     <div className="App">
       <FlickrProvider>
         <GalleriesProvider>
-          <Dashboard />
+          <SelectedPhotosProvider>
+            <Dashboard />
+          </SelectedPhotosProvider>
         </GalleriesProvider>
       </FlickrProvider>
     </div>
